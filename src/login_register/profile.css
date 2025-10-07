@@ -1,0 +1,28 @@
+.modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 1rem;
+  height: 350px;
+  overflow-y: scroll;
+}
+
+.close-b{
+    background: transparent;
+    font-family: inherit;
+    display: inline-block;
+    width: 7em !important; 
+    height: 2.6em !important;
+    line-height: 2.5em !important;
+    overflow: hidden !important;
+    cursor: pointer;
+    margin: 20px !important;
+    font-size: 17px !important;
+    z-index: 1;
+    color: white;
+    background-color: #ef4f5f !important;
+    border: 1.5px solid whitesmoke;
+    border-radius: 6px !important;
+    position: relative;
+    font-weight: 500;
+    padding: 0px !important;
+}

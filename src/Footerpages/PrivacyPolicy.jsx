@@ -1,0 +1,64 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Loader from "../components/Loader";
+import { apiUrl } from "../config";
+
+function TermsCondition() {
+  const [term, setTerm] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const page_id = 4; // Define page_id here
+
+  useEffect(() => {
+    const fetchTerms = async () => {
+      try {
+        const { data } = await axios.post(`${apiUrl}/pages`, { page_id });
+        console.log("API Response:", data);
+
+        if (data && data.status === "success" && data.Page) {
+          setTerm(data.Page);
+        } else {
+          setTerm(null);
+        }
+      } catch (error) {
+        console.error("Error fetching page content:", error);
+        setError("Failed to load terms and conditions.");
+      } finally {
+        setLoading(false); // Set loading to false when request is complete
+      }
+    };
+
+    fetchTerms();
+  }, [page_id]);
+  if (loading) {
+    return (
+      <div className="loader">
+        <div className="dot"></div>
+        <div className="dot"></div>
+        <div className="dot"></div>
+      </div>
+    );
+  }
+  return (
+    <section className="section-gap">
+      {loading && <Loader />}
+      <div className="container">
+        {error ? (
+          <p>{error}</p>
+        ) : (
+          term && (
+            <div>
+              <h3 className="pri-policy">{term.page_name}</h3>
+              <p
+                className="term-description"
+                dangerouslySetInnerHTML={{ __html: term.description }}
+              />
+            </div>
+          )
+        )}
+      </div>
+    </section>
+  );
+}
+
+export default TermsCondition;
